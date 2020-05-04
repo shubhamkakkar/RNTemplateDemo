@@ -1,11 +1,14 @@
 import React, {Dispatch, SetStateAction, useEffect, useState} from 'react';
-import {StyleSheet, TextInputProperties, View, ViewStyle} from 'react-native';
-import {TextInput} from 'react-native-gesture-handler';
+import {
+  StyleSheet,
+  TextInputProperties,
+  TextInput,
+  ViewStyle,
+} from 'react-native';
 import {FView} from '..';
 import BaseHeading, {TBaseHeadingProps} from '../BaseHeading/BaseHeading';
 
 type TTextInputUI = {
-  //   title: string;
   value: string;
   onChangeText: (param: string) => void | Dispatch<SetStateAction<string>>;
   customTexTInputStyling?: ViewStyle;

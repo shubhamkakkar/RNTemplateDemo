@@ -1,7 +1,7 @@
 import React, {ReactNode} from 'react';
 import {
-  Modal,
-  SafeAreaView,
+  Animated,
+  Dimensions,
   StyleSheet,
   TouchableOpacity,
   View,
@@ -18,6 +18,7 @@ type ModalProps = {
   customStyleScrollView?: ViewProps;
   customHeightInPercentage?: string;
 };
+
 export default function BottomSheet({
   headerTitle,
   visible,
@@ -27,6 +28,24 @@ export default function BottomSheet({
   alwaysOpen,
   customHeightInPercentage,
 }: ModalProps) {
+  const opacityFormContainer = React.useMemo(() => new Animated.Value(0), []);
+  const {height: HEIGHT} = React.useMemo(() => Dimensions.get('window'), []);
+
+  function triggerAnimation() {
+    Animated.timing(opacityFormContainer, {
+      toValue: 1,
+      duration: 1500,
+      useNativeDriver: true,
+    }).start();
+  }
+
+  React.useEffect(() => {
+    triggerAnimation();
+  }, []);
+  const translateY = opacityFormContainer.interpolate({
+    inputRange: [0, 1],
+    outputRange: [HEIGHT, HEIGHT / 2.5],
+  });
   const Header = () => (
     <View style={styles.header}>
       <FView>
@@ -40,39 +59,30 @@ export default function BottomSheet({
     </View>
   );
   return (
-    <Modal transparent visible={visible} animationType={'slide'}>
-      <View style={[styles.modal, {height: customHeightInPercentage || '75%'}]}>
-        <SafeAreaView style={styles.bottomArea}>
-          <Header />
-          <KeyboardAvoidingViewUI {...{customStyleScrollView}}>
-            {children}
-          </KeyboardAvoidingViewUI>
-        </SafeAreaView>
-      </View>
-    </Modal>
+    <Animated.View
+      style={[
+        styles.modal,
+        {
+          opacity: opacityFormContainer,
+          transform: [{translateY}],
+        },
+      ]}>
+      <Header />
+      <KeyboardAvoidingViewUI {...{customStyleScrollView}}>
+        {children}
+      </KeyboardAvoidingViewUI>
+    </Animated.View>
   );
 }
 
 const styles = StyleSheet.create({
   modal: {
-    padding: 10,
-    marginLeft: '1%',
-    marginRight: '1%',
-    position: 'absolute',
-    bottom: 0,
-    width: '98%',
-    borderTopRightRadius: 50,
-    borderTopLeftRadius: 50,
-    backgroundColor: '#fff',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 12,
-    },
-    shadowOpacity: 1,
-    shadowRadius: 5,
-    elevation: 24,
-    zIndex: 24,
+    backgroundColor: 'white',
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
+    paddingVertical: 20,
+    paddingHorizontal: 30,
+    height: '100%',
   },
   header: {
     borderRadius: 10,
@@ -103,9 +113,5 @@ const styles = StyleSheet.create({
     color: '#333',
     fontSize: 50,
     alignSelf: 'center',
-  },
-  bottomArea: {
-    height: '100%',
-    justifyContent: 'center',
   },
 });
