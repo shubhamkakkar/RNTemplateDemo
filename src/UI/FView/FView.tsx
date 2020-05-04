@@ -2,7 +2,7 @@ import React from 'react';
 import {View, ViewStyle, StyleSheet} from 'react-native';
 
 type TFView = {
-  children?: React.ReactElement;
+  children?: React.ReactNode[] | React.ReactChildren | React.ReactElement;
   style?: ViewStyle;
 };
 

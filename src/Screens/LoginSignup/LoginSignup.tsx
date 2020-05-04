@@ -1,9 +1,18 @@
 import React from 'react';
-import {FView, UIText} from '../../UI';
+import {StyleSheet} from 'react-native';
+import {BottomSheetAuthenticationForm} from '../../components';
+import {FView} from '../../UI';
 export default function LoginSignup() {
   return (
-    <FView>
-      <UIText>Shubham</UIText>
+    <FView style={styles.container}>
+      <FView />
+      <BottomSheetAuthenticationForm />
     </FView>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: '#ccc',
+  },
+});

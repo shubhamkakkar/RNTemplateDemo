@@ -7,7 +7,7 @@ type TStackScreen = {
 
 export const stackScreeenArray: TStackScreen[] = [
   {
-    name: '',
+    name: 'LoginSignup',
     component: LoginSignup,
   },
 ];
