@@ -1,7 +1,5 @@
 import React, {ReactNode} from 'react';
 import {
-  Animated,
-  Dimensions,
   Modal,
   SafeAreaView,
   StyleSheet,
@@ -13,60 +11,44 @@ import {FView, KeyboardAvoidingViewUI, UIText} from '../index';
 
 type ModalProps = {
   children: ReactNode;
-  onClose: () => void;
+  onClose?: () => void;
   visible: boolean;
+  alwaysOpen?: boolean;
   headerTitle?: string;
   customStyleScrollView?: ViewProps;
+  customHeightInPercentage?: string;
 };
-
-const {height} = Dimensions.get('screen');
-const translateYHeight = height / 6;
-
 export default function BottomSheet({
   headerTitle,
   visible,
   children,
   onClose,
   customStyleScrollView,
+  alwaysOpen,
+  customHeightInPercentage,
 }: ModalProps) {
-  const translateY = React.useMemo(() => new Animated.Value(height), []);
-
-  function animationStart(toValue: number) {
-    Animated.spring(translateY, {
-      toValue,
-      useNativeDriver: true,
-    }).start(() => {});
-  }
-
-  React.useEffect(() => {
-    visible && animationStart(translateYHeight);
-  }, [visible]);
-
-  function onPress() {
-    animationStart(-height);
-    onClose();
-  }
-
   const Header = () => (
     <View style={styles.header}>
       <FView>
         <UIText style={styles.headerText}>{headerTitle}</UIText>
       </FView>
-      <TouchableOpacity style={styles.button} {...{onPress}}>
-        <UIText style={styles.headerText}>Cancel</UIText>
-      </TouchableOpacity>
+      {!!alwaysOpen ? null : (
+        <TouchableOpacity style={styles.button} onPress={onClose}>
+          <UIText style={styles.headerText}>Cancel</UIText>
+        </TouchableOpacity>
+      )}
     </View>
   );
   return (
     <Modal transparent visible={visible} animationType={'slide'}>
-      <Animated.View style={[styles.modal]}>
+      <View style={[styles.modal, {height: customHeightInPercentage || '75%'}]}>
         <SafeAreaView style={styles.bottomArea}>
           <Header />
           <KeyboardAvoidingViewUI {...{customStyleScrollView}}>
             {children}
           </KeyboardAvoidingViewUI>
         </SafeAreaView>
-      </Animated.View>
+      </View>
     </Modal>
   );
 }
@@ -79,9 +61,8 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 0,
     width: '98%',
-    height: '75%',
-    borderTopRightRadius: 20,
-    borderTopLeftRadius: 20,
+    borderTopRightRadius: 50,
+    borderTopLeftRadius: 50,
     backgroundColor: '#fff',
     shadowColor: '#000',
     shadowOffset: {

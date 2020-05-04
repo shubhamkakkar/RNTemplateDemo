@@ -1,15 +1,14 @@
 import React from 'react';
 import {StyleSheet} from 'react-native';
-import {FView, BottomSheet, UIText} from '../../UI';
-import useBooleabState from '../../customHooks/useBooleanState';
+import {BottomSheet, FView} from '../../UI';
+import AuthenticationFormFields from './AuthenticationFormFields/AuthenticationFormFields';
 
 export default function BottomSheetAuthenticationForm() {
-  const [visible, onClose] = useBooleabState(true);
-  console.log({visible});
   return (
-    <BottomSheet {...{visible, onClose}}>
+    <BottomSheet
+      {...{visible: true, alwaysOpen: true, customHeightInPercentage: '50%'}}>
       <FView>
-        <UIText>Shubham</UIText>
+        <AuthenticationFormFields />
       </FView>
     </BottomSheet>
   );
