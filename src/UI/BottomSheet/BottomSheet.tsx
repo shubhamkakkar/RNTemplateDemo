@@ -5,20 +5,17 @@ import {
   Modal,
   SafeAreaView,
   StyleSheet,
-  Text,
   TouchableOpacity,
   View,
   ViewProps,
 } from 'react-native';
-import {KeyboardAvoidingViewUI, FView, UIText} from '../index';
+import {FView, KeyboardAvoidingViewUI, UIText} from '../index';
 
 type ModalProps = {
   children: ReactNode;
   onClose: () => void;
   visible: boolean;
-  headerTitle: string;
-  hack?: boolean;
-  keyboardVerticalOffset?: number;
+  headerTitle?: string;
   customStyleScrollView?: ViewProps;
 };
 

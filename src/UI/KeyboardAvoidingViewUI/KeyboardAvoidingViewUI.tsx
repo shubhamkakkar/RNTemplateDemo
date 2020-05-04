@@ -1,21 +1,27 @@
 import React from 'react';
 import {
-  ScrollView,
   KeyboardAvoidingView,
-  StyleSheet,
   Platform,
+  ScrollView,
+  StyleSheet,
+  ViewStyle,
 } from 'react-native';
+
+type TKeyboardAvoidingViewUI = {
+  children: React.ReactNode;
+  customStyleScrollView?: ViewStyle;
+};
+
 export default function KeyboardAvoidingViewUI({
   children,
-}: {
-  children: React.ReactNode;
-}) {
+  customStyleScrollView,
+}: TKeyboardAvoidingViewUI) {
   return (
     <KeyboardAvoidingView
       style={s.flex}
       enabled={true}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-      <ScrollView>{children}</ScrollView>
+      <ScrollView style={customStyleScrollView}>{children}</ScrollView>
     </KeyboardAvoidingView>
   );
 }
