@@ -52,7 +52,7 @@ export default function DoneAnimatedButton() {
         {!btnPress && (
           <TouchableNativeFeedback
             style={style.btnCommonStyle}
-            onPress={triggerAnimation}>
+            onPress={() => triggerAnimation()}>
             <UIText>Title</UIText>
           </TouchableNativeFeedback>
         )}
