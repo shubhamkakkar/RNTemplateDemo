@@ -1,6 +1,8 @@
 import React from 'react';
-import {FView, TextInputUI} from '../../../UI';
+import {StyleSheet} from 'react-native';
+import {FView, TextInputUI, UIText, DoneAnimatedButton} from '../../../UI';
 import {useStringState} from '../../../customHooks';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 
 export default function AuthenticationFormFields() {
   const [email, setEmail] = useStringState();
@@ -11,6 +13,7 @@ export default function AuthenticationFormFields() {
         {...{
           value: email,
           onChangeText: setEmail,
+          containerStyle: styles.textInputStyle,
           baseHeadingProps: {
             title: 'Email',
           },
@@ -20,11 +23,30 @@ export default function AuthenticationFormFields() {
         {...{
           value: password,
           onChangeText: setPassword,
+          containerStyle: styles.textInputStyle,
           baseHeadingProps: {
             title: 'Password',
           },
+          texInputProps: {
+            secureTextEntry: true,
+          },
         }}
       />
+      <FView style={styles.forgotPasswordBtnContainer}>
+        <TouchableOpacity>
+          <UIText>Forgot Password</UIText>
+        </TouchableOpacity>
+      </FView>
+      <DoneAnimatedButton />
     </FView>
   );
 }
+
+const styles = StyleSheet.create({
+  textInputStyle: {
+    marginBottom: 5,
+  },
+  forgotPasswordBtnContainer: {
+    alignItems: 'flex-end',
+  },
+});

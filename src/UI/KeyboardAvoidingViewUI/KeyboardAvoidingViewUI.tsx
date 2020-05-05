@@ -18,7 +18,7 @@ export default function KeyboardAvoidingViewUI({
 }: TKeyboardAvoidingViewUI) {
   return (
     <KeyboardAvoidingView
-      style={s.flex}
+      style={styles.flex}
       enabled={true}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
       <ScrollView style={customStyleScrollView}>{children}</ScrollView>
@@ -26,7 +26,7 @@ export default function KeyboardAvoidingViewUI({
   );
 }
 
-const s = StyleSheet.create({
+const styles = StyleSheet.create({
   flex: {
     flex: 1,
   },

@@ -14,9 +14,3 @@ export default function BottomSheetAuthenticationForm() {
     </BottomSheet>
   );
 }
-
-const styles = StyleSheet.create({
-  customStyleScrollView: {
-    backgroundColor: 'red',
-  },
-});

@@ -6,3 +6,6 @@ export {
 } from './KeyboardAvoidingViewUI/KeyboardAvoidingViewUI';
 export {default as TextInputUI} from './TextInputUI/TextInutUI';
 export {default as UIText} from './UIText/UIText';
+export {
+  default as DoneAnimatedButton,
+} from './DoneAnimatedButton/DoneAnimatedButton';
