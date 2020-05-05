@@ -28,11 +28,11 @@ export default function BottomSheet({
   alwaysOpen,
   customHeightInPercentage,
 }: ModalProps) {
-  const opacityFormContainer = React.useMemo(() => new Animated.Value(0), []);
+  const opacity = React.useMemo(() => new Animated.Value(0), []);
   const {height: HEIGHT} = React.useMemo(() => Dimensions.get('window'), []);
 
   function triggerAnimation() {
-    Animated.timing(opacityFormContainer, {
+    Animated.timing(opacity, {
       toValue: 1,
       duration: 1500,
       useNativeDriver: true,
@@ -42,9 +42,9 @@ export default function BottomSheet({
   React.useEffect(() => {
     triggerAnimation();
   }, []);
-  const translateY = opacityFormContainer.interpolate({
+  const translateY = opacity.interpolate({
     inputRange: [0, 1],
-    outputRange: [HEIGHT, HEIGHT / 2.5],
+    outputRange: [HEIGHT, 0],
   });
   const Header = () => (
     <View style={styles.header}>
@@ -59,19 +59,21 @@ export default function BottomSheet({
     </View>
   );
   return (
-    <Animated.View
-      style={[
-        styles.modal,
-        {
-          opacity: opacityFormContainer,
-          transform: [{translateY}],
-        },
-      ]}>
-      <Header />
-      <KeyboardAvoidingViewUI {...{customStyleScrollView}}>
-        {children}
-      </KeyboardAvoidingViewUI>
-    </Animated.View>
+    <FView>
+      <Animated.View
+        style={[
+          styles.modal,
+          {
+            opacity,
+            transform: [{translateY}],
+          },
+        ]}>
+        <Header />
+        <KeyboardAvoidingViewUI {...{customStyleScrollView}}>
+          {children}
+        </KeyboardAvoidingViewUI>
+      </Animated.View>
+    </FView>
   );
 }
 
@@ -80,9 +82,9 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
-    paddingVertical: 20,
-    paddingHorizontal: 30,
-    height: '100%',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    flex: 2,
   },
   header: {
     borderRadius: 10,
