@@ -66,7 +66,11 @@ export default function DoneAnimatedButton({
           <TouchableNativeFeedback
             style={style.btnCommonStyle}
             {...{onPress, disabled: !!disable}}>
-            {!!btnInTextLoader ? <LoaderUI /> : <UIText>Title</UIText>}
+            {!!btnInTextLoader ? (
+              <LoaderUI color="white" />
+            ) : (
+              <UIText>Title</UIText>
+            )}
           </TouchableNativeFeedback>
         </Animated.View>
       ) : (
@@ -94,7 +98,7 @@ const style = StyleSheet.create({
   btnCommonStyle: {
     padding: 10,
     borderRadius: 10,
-    backgroundColor: 'yellow',
+    backgroundColor: 'red',
   },
   proccessSuccessIconContainer: {
     width: 50,

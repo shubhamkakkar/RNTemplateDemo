@@ -21,7 +21,9 @@ export default function KeyboardAvoidingViewUI({
       style={styles.flex}
       enabled={true}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-      <ScrollView style={customStyleScrollView}>{children}</ScrollView>
+      <ScrollView contentContainerStyle={[customStyleScrollView]}>
+        {children}
+      </ScrollView>
     </KeyboardAvoidingView>
   );
 }

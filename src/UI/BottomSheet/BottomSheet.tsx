@@ -59,21 +59,19 @@ export default function BottomSheet({
     </View>
   );
   return (
-    <FView>
-      <Animated.View
-        style={[
-          styles.modal,
-          {
-            opacity,
-            transform: [{translateY}],
-          },
-        ]}>
-        <Header />
-        <KeyboardAvoidingViewUI {...{customStyleScrollView}}>
-          {children}
-        </KeyboardAvoidingViewUI>
-      </Animated.View>
-    </FView>
+    <Animated.View
+      style={[
+        styles.modal,
+        {
+          opacity,
+          transform: [{translateY}],
+        },
+      ]}>
+      <Header />
+      <KeyboardAvoidingViewUI {...{customStyleScrollView}}>
+        {children}
+      </KeyboardAvoidingViewUI>
+    </Animated.View>
   );
 }
 
@@ -82,9 +80,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    flex: 2,
+    padding: 10,
+    flex: 1,
   },
   header: {
     borderRadius: 10,

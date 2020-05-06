@@ -73,5 +73,6 @@ const styles = StyleSheet.create({
   },
   forgotPasswordBtnContainer: {
     alignItems: 'flex-end',
+    marginBottom: 10,
   },
 });
