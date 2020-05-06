@@ -8,6 +8,7 @@ export default function AuthenticationFormFields() {
   const [email, setEmail] = useStringState();
   const [password, setPassword] = useStringState();
   const [btnInTextLoader, toggleBtnInTextLoader] = useBooleanState();
+  const [beginAnimation, toggleBeginAnimation] = useBooleanState();
 
   function onAnimationComplete() {
     //-> navigation login
@@ -17,7 +18,10 @@ export default function AuthenticationFormFields() {
     // -> form submit action,
 
     toggleBtnInTextLoader();
-    setTimeout(() => toggleBtnInTextLoader(), 2000);
+    setTimeout(() => {
+      toggleBtnInTextLoader();
+      toggleBeginAnimation();
+    }, 2000);
   }
 
   return (
@@ -54,8 +58,9 @@ export default function AuthenticationFormFields() {
         {...{
           onAnimationComplete,
           btnInTextLoader,
-          disable: !(email.trim().length && password.trim().length),
+          // disable: !(email.trim().length && password.trim().length),
           onPress,
+          beginAnimation,
         }}
       />
     </FView>

@@ -13,6 +13,7 @@ type TDoneAnimatedButton = {
   disable?: boolean;
   onPress: () => void;
   btnInTextLoader?: boolean;
+  beginAnimation?: boolean;
 };
 
 export default function DoneAnimatedButton({
@@ -20,10 +21,19 @@ export default function DoneAnimatedButton({
   disable,
   onAnimationComplete,
   btnInTextLoader,
+  beginAnimation,
   onPress,
 }: TDoneAnimatedButton) {
   const opacity = useMemo(() => new Animated.Value(1), []);
-  const [btnPress, setBtnPress] = useBooleanState();
+  const [showAnimatedView, toggleShowAnimatedView] = useBooleanState();
+
+  const defaultAnimationConfig = useMemo(
+    () => ({
+      duration: 950,
+      useNativeDriver: true,
+    }),
+    [],
+  );
 
   const scaleX = opacity.interpolate({
     inputRange: [0, 1],
@@ -31,49 +41,42 @@ export default function DoneAnimatedButton({
   });
 
   function triggerAnimation(toValue?: number) {
+    toValue != undefined && toggleShowAnimatedView();
+
     Animated.timing(opacity, {
       toValue: toValue || 0,
-      duration: 950,
-      useNativeDriver: true,
+      ...defaultAnimationConfig,
     }).start(() => {
-      if (!toValue) {
-        setBtnPress();
-      } else {
-        onAnimationComplete();
+      if (toValue === undefined) {
+        triggerAnimation(1);
       }
     });
   }
 
-  function onPressBtn() {
-    onPress();
-    triggerAnimation(1);
-  }
-
   useEffect(() => {
-    btnPress && triggerAnimation(1);
-  }, [btnPress]);
+    beginAnimation && triggerAnimation();
+  }, [beginAnimation]);
 
   return (
     <FView>
-      {btnPress ? (
+      {!showAnimatedView ? (
+        <Animated.View style={[styles.flex, {transform: [{scaleX}]}]}>
+          <TouchableNativeFeedback
+            style={style.btnCommonStyle}
+            {...{onPress, disabled: !!disable}}>
+            {!!btnInTextLoader ? <LoaderUI /> : <UIText>Title</UIText>}
+          </TouchableNativeFeedback>
+        </Animated.View>
+      ) : (
         <FView style={style.processSuccessParent}>
           <Animated.View
             style={[
               style.proccessSuccessIconContainer,
-              {transform: [{scale: scaleX}]},
+              {transform: [{scaleX}]},
             ]}>
             <AntDesign name="check" size={20} color="white" />
           </Animated.View>
         </FView>
-      ) : (
-        <Animated.View style={[styles.flex, {transform: [{scaleX}]}]}>
-          <TouchableNativeFeedback
-            disabled={!!disable}
-            style={style.btnCommonStyle}
-            onPress={onPressBtn}>
-            {!!btnInTextLoader ? <LoaderUI /> : <UIText>Title</UIText>}
-          </TouchableNativeFeedback>
-        </Animated.View>
       )}
     </FView>
   );
