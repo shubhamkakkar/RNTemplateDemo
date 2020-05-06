@@ -9,3 +9,4 @@ export {default as UIText} from './UIText/UIText';
 export {
   default as DoneAnimatedButton,
 } from './DoneAnimatedButton/DoneAnimatedButton';
+export {default as LoaderUI} from './LoaderUI/LoaderUI';

@@ -5,7 +5,7 @@ export default function useBooleanState(
 ): [boolean, () => void, Dispatch<SetStateAction<boolean>>] {
   const [state, setState] = React.useState<boolean>(() => !!defaultState);
   function toggleState() {
-    setState(!state);
+    setState(prevState => !prevState);
   }
   return [state, toggleState, setState];
 }

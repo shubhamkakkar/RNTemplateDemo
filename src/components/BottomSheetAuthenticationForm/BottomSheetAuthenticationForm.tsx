@@ -1,5 +1,4 @@
 import React from 'react';
-import {StyleSheet} from 'react-native';
 import {BottomSheet} from '../../UI';
 import AuthenticationFormFields from './AuthenticationFormFields/AuthenticationFormFields';
 

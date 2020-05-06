@@ -1,12 +1,25 @@
 import React from 'react';
 import {StyleSheet} from 'react-native';
 import {FView, TextInputUI, UIText, DoneAnimatedButton} from '../../../UI';
-import {useStringState} from '../../../customHooks';
+import {useStringState, useBooleanState} from '../../../customHooks';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 
 export default function AuthenticationFormFields() {
   const [email, setEmail] = useStringState();
   const [password, setPassword] = useStringState();
+  const [btnInTextLoader, toggleBtnInTextLoader] = useBooleanState();
+
+  function onAnimationComplete() {
+    //-> navigation login
+  }
+
+  function onPress() {
+    // -> form submit action,
+
+    toggleBtnInTextLoader();
+    setTimeout(() => toggleBtnInTextLoader(), 2000);
+  }
+
   return (
     <FView>
       <TextInputUI
@@ -37,7 +50,14 @@ export default function AuthenticationFormFields() {
           <UIText>Forgot Password</UIText>
         </TouchableOpacity>
       </FView>
-      <DoneAnimatedButton />
+      <DoneAnimatedButton
+        {...{
+          onAnimationComplete,
+          btnInTextLoader,
+          disable: !(email.trim().length && password.trim().length),
+          onPress,
+        }}
+      />
     </FView>
   );
 }

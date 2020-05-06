@@ -5,12 +5,23 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import useBooleanState from '../../customHooks/useBooleanState';
 import UIText from '../UIText/UIText';
 import FView from '../FView/FView';
+import LoaderUI from '../LoaderUI/LoaderUI';
 type TDoneAnimatedButton = {
   children?: React.ReactNode;
   title?: string;
+  onAnimationComplete: () => void;
+  disable?: boolean;
+  onPress: () => void;
+  btnInTextLoader?: boolean;
 };
 
-export default function DoneAnimatedButton() {
+export default function DoneAnimatedButton({
+  title,
+  disable,
+  onAnimationComplete,
+  btnInTextLoader,
+  onPress,
+}: TDoneAnimatedButton) {
   const opacity = useMemo(() => new Animated.Value(1), []);
   const [btnPress, setBtnPress] = useBooleanState();
 
@@ -22,13 +33,20 @@ export default function DoneAnimatedButton() {
   function triggerAnimation(toValue?: number) {
     Animated.timing(opacity, {
       toValue: toValue || 0,
-      duration: 1000,
+      duration: 950,
       useNativeDriver: true,
     }).start(() => {
       if (!toValue) {
         setBtnPress();
+      } else {
+        onAnimationComplete();
       }
     });
+  }
+
+  function onPressBtn() {
+    onPress();
+    triggerAnimation(1);
   }
 
   useEffect(() => {
@@ -37,7 +55,7 @@ export default function DoneAnimatedButton() {
 
   return (
     <FView>
-      {btnPress && (
+      {btnPress ? (
         <FView style={style.processSuccessParent}>
           <Animated.View
             style={[
@@ -47,16 +65,16 @@ export default function DoneAnimatedButton() {
             <AntDesign name="check" size={20} color="white" />
           </Animated.View>
         </FView>
-      )}
-      <Animated.View style={[styles.flex, {transform: [{scaleX}]}]}>
-        {!btnPress && (
+      ) : (
+        <Animated.View style={[styles.flex, {transform: [{scaleX}]}]}>
           <TouchableNativeFeedback
+            disabled={!!disable}
             style={style.btnCommonStyle}
-            onPress={() => triggerAnimation()}>
-            <UIText>Title</UIText>
+            onPress={onPressBtn}>
+            {!!btnInTextLoader ? <LoaderUI /> : <UIText>Title</UIText>}
           </TouchableNativeFeedback>
-        )}
-      </Animated.View>
+        </Animated.View>
+      )}
     </FView>
   );
 }
@@ -71,7 +89,7 @@ const style = StyleSheet.create({
   btnCommonStyle: {
     padding: 10,
     borderRadius: 10,
-    backgroundColor: '#ccc',
+    backgroundColor: 'yellow',
   },
   proccessSuccessIconContainer: {
     width: 50,
