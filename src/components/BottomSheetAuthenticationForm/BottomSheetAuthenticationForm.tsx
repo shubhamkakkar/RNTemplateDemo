@@ -49,4 +49,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 2,
   },
+  temp: {
+    flex: 1,
+  },
 });
