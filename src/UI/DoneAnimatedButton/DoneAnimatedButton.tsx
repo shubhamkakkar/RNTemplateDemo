@@ -49,6 +49,8 @@ export default function DoneAnimatedButton({
     }).start(() => {
       if (toValue === undefined) {
         triggerAnimation(1);
+      } else {
+        onAnimationComplete();
       }
     });
   }

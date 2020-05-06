@@ -15,9 +15,9 @@ export default function AuthenticationFormFields() {
   }
 
   function onPress() {
-    // -> form submit action,
-
+    // -> form submit action
     toggleBtnInTextLoader();
+    // demo for animation view
     setTimeout(() => {
       toggleBtnInTextLoader();
       toggleBeginAnimation();
@@ -58,7 +58,7 @@ export default function AuthenticationFormFields() {
         {...{
           onAnimationComplete,
           btnInTextLoader,
-          // disable: !(email.trim().length && password.trim().length),
+          disable: !(email.trim().length && password.trim().length),
           onPress,
           beginAnimation,
         }}
