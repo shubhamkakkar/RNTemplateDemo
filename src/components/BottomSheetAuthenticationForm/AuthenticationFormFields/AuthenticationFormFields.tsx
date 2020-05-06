@@ -92,7 +92,7 @@ export default function AuthenticationFormFields({
         />
       </Animated.View>
       <FView style={styles.forgotPasswordBtnContainer}>
-        <TouchableOpacity onPress={toggleVisible}>
+        <TouchableOpacity disabled={btnInTextLoader} onPress={toggleVisible}>
           <UIText bold>Forgot Password</UIText>
         </TouchableOpacity>
       </FView>
@@ -106,8 +106,10 @@ export default function AuthenticationFormFields({
         }}
       />
       <FView style={styles.altOptionBtnContainer}>
-        <TouchableOpacity onPress={animateTranslateXSignupFields}>
-          <UIText bold>Sign Up Instead</UIText>
+        <TouchableOpacity
+          disabled={btnInTextLoader}
+          onPress={animateTranslateXSignupFields}>
+          <UIText bold> {showSignupFields ? 'Login' : 'Sign Up'}</UIText>
         </TouchableOpacity>
       </FView>
     </Animated.View>

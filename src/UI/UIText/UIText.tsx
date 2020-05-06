@@ -2,7 +2,7 @@ import React from 'react';
 import {Text, TextStyle} from 'react-native';
 
 type TUIText = {
-  children: string | number | React.ReactElement;
+  children: string | number | React.ReactElement | any;
   style?: TextStyle;
   bold?: boolean;
 };

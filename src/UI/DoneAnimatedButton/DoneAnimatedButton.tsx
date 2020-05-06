@@ -67,7 +67,7 @@ export default function DoneAnimatedButton({
             style={style.btnCommonStyle}
             {...{onPress, disabled: !!disable}}>
             {!!btnInTextLoader ? (
-              <LoaderUI color="white" />
+              <LoaderUI color="white" size="small" />
             ) : (
               <UIText>Title</UIText>
             )}
@@ -101,9 +101,9 @@ const style = StyleSheet.create({
     backgroundColor: 'red',
   },
   proccessSuccessIconContainer: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
+    width: 40,
+    height: 40,
+    borderRadius: 20,
     backgroundColor: 'red',
     justifyContent: 'center',
     alignItems: 'center',
