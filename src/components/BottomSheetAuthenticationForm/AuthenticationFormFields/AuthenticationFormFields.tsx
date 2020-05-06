@@ -1,11 +1,16 @@
 import React from 'react';
 import {StyleSheet} from 'react-native';
-import {FView, TextInputUI, UIText, DoneAnimatedButton} from '../../../UI';
-import {useStringState, useBooleanState} from '../../../customHooks';
 import {TouchableOpacity} from 'react-native-gesture-handler';
-import ForgetPassword from '../ForgetPassword/ForgetPassword';
+import {useBooleanState, useStringState} from '../../../customHooks';
+import {DoneAnimatedButton, FView, TextInputUI, UIText} from '../../../UI';
 
-export default function AuthenticationFormFields() {
+type TAuthenticationFormFields = {
+  toggleVisible: () => void;
+};
+
+export default function AuthenticationFormFields({
+  toggleVisible,
+}: TAuthenticationFormFields) {
   const [email, setEmail] = useStringState();
   const [password, setPassword] = useStringState();
   const [btnInTextLoader, toggleBtnInTextLoader] = useBooleanState();
@@ -51,7 +56,9 @@ export default function AuthenticationFormFields() {
         }}
       />
       <FView style={styles.forgotPasswordBtnContainer}>
-        <ForgetPassword />
+        <TouchableOpacity onPress={toggleVisible}>
+          <UIText>Forgot Password</UIText>
+        </TouchableOpacity>
       </FView>
       <DoneAnimatedButton
         {...{

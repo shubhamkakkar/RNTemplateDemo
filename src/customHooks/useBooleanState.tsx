@@ -1,4 +1,4 @@
-import React, {Dispatch, SetStateAction} from 'react';
+import React, {Dispatch, SetStateAction, useEffect} from 'react';
 
 export default function useBooleanState(
   defaultState?: boolean,
@@ -7,5 +7,6 @@ export default function useBooleanState(
   function toggleState() {
     setState(prevState => !prevState);
   }
+
   return [state, toggleState, setState];
 }

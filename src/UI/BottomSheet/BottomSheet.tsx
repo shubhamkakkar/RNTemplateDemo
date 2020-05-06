@@ -1,4 +1,4 @@
-import React, {ReactNode} from 'react';
+import React, {ReactNode, useMemo, useEffect} from 'react';
 import {
   Animated,
   Dimensions,
@@ -28,31 +28,54 @@ export default function BottomSheet({
   alwaysOpen,
   customHeightInPercentage,
 }: ModalProps) {
-  const opacity = React.useMemo(() => new Animated.Value(0), []);
-  const {height: HEIGHT} = React.useMemo(() => Dimensions.get('window'), []);
-
+  const opacity = useMemo(() => new Animated.Value(0), []);
+  const {height: HEIGHT} = useMemo(() => Dimensions.get('window'), []);
+  const defaultAnimationConfig = useMemo(
+    () => ({
+      duration: 950,
+      useNativeDriver: true,
+    }),
+    [],
+  );
   function triggerAnimation() {
     Animated.timing(opacity, {
       toValue: 1,
-      duration: 1500,
-      useNativeDriver: true,
+      ...defaultAnimationConfig,
     }).start();
   }
 
-  React.useEffect(() => {
-    triggerAnimation();
-  }, []);
+  function closeAnimation() {
+    Animated.timing(opacity, {
+      toValue: 0,
+      duration: 1500,
+      useNativeDriver: true,
+    }).start(() => {
+      if (visible) {
+        onClose();
+      }
+    });
+  }
+
+  useEffect(() => {
+    if (visible) {
+      triggerAnimation();
+    } else {
+      closeAnimation();
+    }
+  }, [visible]);
+
   const translateY = opacity.interpolate({
     inputRange: [0, 1],
     outputRange: [HEIGHT, 0],
   });
+
   const Header = () => (
     <View style={styles.header}>
       <FView>
         <UIText style={styles.headerText}>{headerTitle}</UIText>
       </FView>
       {!!alwaysOpen ? null : (
-        <TouchableOpacity style={styles.button} onPress={onClose}>
+        <TouchableOpacity style={styles.button} onPress={closeAnimation}>
           <UIText style={styles.headerText}>Cancel</UIText>
         </TouchableOpacity>
       )}
