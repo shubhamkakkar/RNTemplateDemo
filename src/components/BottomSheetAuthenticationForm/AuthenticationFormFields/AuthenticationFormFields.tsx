@@ -57,7 +57,7 @@ export default function AuthenticationFormFields({
       />
       <FView style={styles.forgotPasswordBtnContainer}>
         <TouchableOpacity onPress={toggleVisible}>
-          <UIText>Forgot Password</UIText>
+          <UIText bold>Forgot Password</UIText>
         </TouchableOpacity>
       </FView>
       <DoneAnimatedButton

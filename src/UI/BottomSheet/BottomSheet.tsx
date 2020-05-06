@@ -47,8 +47,7 @@ export default function BottomSheet({
   function closeAnimation() {
     Animated.timing(opacity, {
       toValue: 0,
-      duration: 1500,
-      useNativeDriver: true,
+      ...defaultAnimationConfig,
     }).start(() => {
       if (visible) {
         onClose();
@@ -71,14 +70,12 @@ export default function BottomSheet({
 
   const Header = () => (
     <View style={styles.header}>
-      <FView>
-        <UIText style={styles.headerText}>{headerTitle}</UIText>
-      </FView>
       {!!alwaysOpen ? null : (
         <TouchableOpacity style={styles.button} onPress={closeAnimation}>
-          <UIText style={styles.headerText}>Cancel</UIText>
+          <UIText style={styles.closeBtnText}>Cancel</UIText>
         </TouchableOpacity>
       )}
+      <UIText style={styles.headerText}>{headerTitle}</UIText>
     </View>
   );
   return (
@@ -107,29 +104,18 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   header: {
-    borderRadius: 10,
-    margin: 5,
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexWrap: 'wrap',
+    marginHorizontal: 5,
   },
   headerText: {
-    fontSize: 20,
     fontWeight: 'bold',
     textAlign: 'center',
+    fontSize: 16,
   },
   button: {
-    height: 50,
-    width: 50,
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    alignContent: 'center',
-    borderRadius: 45,
-    borderColor: '#CCC',
+    alignItems: 'flex-end',
+  },
+  closeBtnText: {
+    fontWeight: 'bold',
   },
   buttonText: {
     color: '#333',

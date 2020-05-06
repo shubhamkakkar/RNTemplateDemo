@@ -10,10 +10,20 @@ export default function BottomSheetAuthenticationForm() {
   useEffect(() => {
     if (!visibleBaseForm) {
       setTimeout(() => {
-        toggleVisible();
-      }, 900);
+        // opening forget password  form
+        !visible && toggleVisible();
+      }, 500);
     }
   }, [visibleBaseForm]);
+
+  useEffect(() => {
+    if (!visible) {
+      // setTimeout(() => {
+      // opening base form
+      !visibleBaseForm && toggleVisibleBaseForm();
+      // }, 00);
+    }
+  }, [visible]);
 
   const renderForgetPassword = visible && !visibleBaseForm;
 
@@ -23,9 +33,7 @@ export default function BottomSheetAuthenticationForm() {
         <BottomSheet
           {...{
             visible: visibleBaseForm,
-            onClose: toggleVisibleBaseForm,
             alwaysOpen: true,
-            customStyleScrollView: styles.customStyleScrollView,
           }}>
           <AuthenticationFormFields toggleVisible={toggleVisibleBaseForm} />
         </BottomSheet>
@@ -40,8 +48,5 @@ export default function BottomSheetAuthenticationForm() {
 const styles = StyleSheet.create({
   container: {
     flex: 2,
-  },
-  customStyleScrollView: {
-    flex: 1,
   },
 });
