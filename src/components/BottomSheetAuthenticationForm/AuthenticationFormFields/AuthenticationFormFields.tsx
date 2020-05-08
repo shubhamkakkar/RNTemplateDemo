@@ -9,9 +9,7 @@ type TAuthenticationFormFields = {
   toggleVisible: () => void;
 };
 
-export default function AuthenticationFormFields({
-  toggleVisible,
-}: TAuthenticationFormFields) {
+export default function AuthenticationFormFields({toggleVisible}: TAuthenticationFormFields) {
   const [email, setEmail] = useStringState();
   const [password, setPassword] = useStringState();
   const [confirmPassword, setConfirmPassword] = useStringState();
@@ -106,10 +104,8 @@ export default function AuthenticationFormFields({
         }}
       />
       <FView style={styles.altOptionBtnContainer}>
-        <TouchableOpacity
-          disabled={btnInTextLoader}
-          onPress={animateTranslateXSignupFields}>
-          <UIText bold> {showSignupFields ? 'Login' : 'Sign Up'}</UIText>
+        <TouchableOpacity disabled={btnInTextLoader} onPress={animateTranslateXSignupFields}>
+          <UIText bold> {showSignupFields ? 'Sign Up' : 'Login'}</UIText>
         </TouchableOpacity>
       </FView>
     </Animated.View>

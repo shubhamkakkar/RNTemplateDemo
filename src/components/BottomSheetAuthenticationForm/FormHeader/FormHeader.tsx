@@ -1,55 +1,42 @@
 import React, {useEffect, useMemo} from 'react';
-import {FView, UIText} from '../../../UI';
-import {Animated, StyleSheet, Dimensions} from 'react-native';
-import {useBooleanState} from '../../../customHooks';
+import {Animated, Dimensions, StyleSheet} from 'react-native';
+import {UIText} from '../../../UI';
 
 type TLottieAnimation = {
-  renderForgetPassword: boolean;
+  title: string;
+  boolStateToTriggerFormHeaderAnimation: boolean;
 };
 
-export default function FormHeader({renderForgetPassword}: TLottieAnimation) {
+export default function FormHeader({boolStateToTriggerFormHeaderAnimation, title}: TLottieAnimation) {
   const {height: HEIGHT} = useMemo(() => Dimensions.get('window'), []);
-  const translateYHeaderTitle = useMemo(() => new Animated.Value(HEIGHT), []);
-  const opacity = useMemo(() => new Animated.Value(0), [renderForgetPassword]);
+  const translateYHeaderTitle = useMemo(() => new Animated.Value(HEIGHT), [boolStateToTriggerFormHeaderAnimation]);
   const defaultAnimationConfig = useMemo(
     () => ({
-      duration: 1050,
+      duration: 1200,
       useNativeDriver: true,
     }),
     [],
   );
 
   function triggerAnimation() {
-    Animated.parallel([
-      Animated.timing(translateYHeaderTitle, {
-        toValue: 0,
-        ...defaultAnimationConfig,
-      }),
-    ]).start();
-  }
-
-  function opacityAnimation() {
-    Animated.timing(opacity, {
-      toValue: 1,
+    Animated.timing(translateYHeaderTitle, {
+      toValue: 0,
       ...defaultAnimationConfig,
     }).start();
   }
 
   useEffect(() => {
     triggerAnimation();
-  }, []);
+  }, [boolStateToTriggerFormHeaderAnimation]);
 
-  useEffect(() => {
-    opacityAnimation();
-  }, [renderForgetPassword]);
+  const opacity = translateYHeaderTitle.interpolate({
+    inputRange: [0, HEIGHT],
+    outputRange: [1, 0],
+  });
 
   return (
-    <Animated.View
-      style={[
-        styles.headerContainer,
-        {opacity, transform: [{translateY: translateYHeaderTitle}]},
-      ]}>
-      <UIText style={styles.headerTitle}>TITLE</UIText>
+    <Animated.View style={[styles.headerContainer, {opacity, transform: [{translateY: translateYHeaderTitle}]}]}>
+      <UIText style={styles.headerTitle}>{title}</UIText>
     </Animated.View>
   );
 }

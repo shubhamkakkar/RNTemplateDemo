@@ -8,8 +8,10 @@ import FormHeader from './FormHeader/FormHeader';
 export default function BottomSheetAuthenticationForm() {
   const [visibleBaseForm, toggleVisibleBaseForm] = useBooleanState(true);
   const [visible, toggleVisible] = useBooleanState();
+  const [boolStateToTriggerFormHeaderAnimation, toggleboolStateToTriggerFormHeaderAnimation] = useBooleanState();
   useEffect(() => {
     if (!visibleBaseForm) {
+      toggleboolStateToTriggerFormHeaderAnimation();
       setTimeout(() => {
         // opening forget password  form
         !visible && toggleVisible();
@@ -19,6 +21,7 @@ export default function BottomSheetAuthenticationForm() {
 
   useEffect(() => {
     if (!visible) {
+      toggleboolStateToTriggerFormHeaderAnimation();
       // setTimeout(() => {
       // opening base form
       !visibleBaseForm && toggleVisibleBaseForm();
@@ -30,7 +33,12 @@ export default function BottomSheetAuthenticationForm() {
 
   return (
     <React.Fragment>
-      <FormHeader {...{renderForgetPassword}} />
+      <FormHeader
+        {...{
+          title: boolStateToTriggerFormHeaderAnimation ? 'Authenticate' : 'Forget Password',
+          boolStateToTriggerFormHeaderAnimation,
+        }}
+      />
       <FView style={styles.container}>
         {!renderForgetPassword && (
           <BottomSheet
@@ -41,9 +49,7 @@ export default function BottomSheetAuthenticationForm() {
             <AuthenticationFormFields toggleVisible={toggleVisibleBaseForm} />
           </BottomSheet>
         )}
-        {renderForgetPassword && (
-          <ForgetPasswordFields {...{visible, toggleVisible}} />
-        )}
+        {renderForgetPassword && <ForgetPasswordFields {...{visible, toggleVisible}} />}
       </FView>
     </React.Fragment>
   );
