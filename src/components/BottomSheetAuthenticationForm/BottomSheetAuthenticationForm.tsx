@@ -5,6 +5,7 @@ import {BottomSheet, FView} from '../../UI';
 import AuthenticationFormFields from './AuthenticationFormFields/AuthenticationFormFields';
 import ForgetPasswordFields from './ForgetPasswordFields/ForgetPasswordFields';
 import FormHeader from './FormHeader/FormHeader';
+import UnderLayingLogo from './UnderLayingLogo/UnderLayingLogo';
 export default function BottomSheetAuthenticationForm() {
   const [visibleBaseForm, toggleVisibleBaseForm] = useBooleanState(true);
   const [visible, toggleVisible] = useBooleanState();
@@ -33,7 +34,7 @@ export default function BottomSheetAuthenticationForm() {
     <React.Fragment>
       <FormHeader
         {...{
-          title: boolStateToTriggerFormHeaderAnimation ? 'Authenticate' : 'Forget Password',
+          title: boolStateToTriggerFormHeaderAnimation ? 'Forget Password' : 'Authenticate',
           boolStateToTriggerFormHeaderAnimation,
         }}
       />
@@ -49,6 +50,7 @@ export default function BottomSheetAuthenticationForm() {
         )}
         {renderForgetPassword && <ForgetPasswordFields {...{visible, toggleVisible}} />}
       </FView>
+      <UnderLayingLogo />
     </React.Fragment>
   );
 }

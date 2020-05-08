@@ -12,6 +12,6 @@ export default function LoginSignup() {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'red',
+    backgroundColor: '#2ca8e5',
   },
 });

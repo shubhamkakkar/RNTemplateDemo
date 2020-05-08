@@ -90,17 +90,19 @@ const styles = StyleSheet.create({
   },
   btnTextStyle: {
     color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
   btnCommonStyle: {
     padding: 10,
     borderRadius: 10,
-    backgroundColor: 'red',
+    backgroundColor: '#2ca8e5',
   },
   proccessSuccessIconContainer: {
     width: 40,
     height: 40,
     borderRadius: 20,
-    backgroundColor: 'red',
+    backgroundColor: '#2ca8e5',
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -109,6 +111,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   disableBtnContainer: {
-    backgroundColor: '#ccc',
+    backgroundColor: '#f1f2f3',
+  },
+  disableBtnText: {
+    backgroundColor: '#2ca8e5',
   },
 });

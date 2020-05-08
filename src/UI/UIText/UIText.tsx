@@ -8,9 +8,5 @@ type TUIText = {
 };
 
 export default function UIText({children, style, bold}: TUIText) {
-  return (
-    <Text style={[{fontWeight: bold ? 'bold' : 'normal'}, style]}>
-      {children}
-    </Text>
-  );
+  return <Text style={[{fontWeight: bold ? 'bold' : 'normal'}, style]}>{children}</Text>;
 }
