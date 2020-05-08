@@ -8,7 +8,7 @@ import FView from '../FView/FView';
 import LoaderUI from '../LoaderUI/LoaderUI';
 type TDoneAnimatedButton = {
   children?: React.ReactNode;
-  title?: string;
+  btnText?: string;
   onAnimationComplete: () => void;
   disable?: boolean;
   onPress: () => void;
@@ -17,7 +17,7 @@ type TDoneAnimatedButton = {
 };
 
 export default function DoneAnimatedButton({
-  title,
+  btnText,
   disable,
   onAnimationComplete,
   btnInTextLoader,
@@ -64,22 +64,18 @@ export default function DoneAnimatedButton({
       {!showAnimatedView ? (
         <Animated.View style={[styles.flex, {transform: [{scaleX}]}]}>
           <TouchableNativeFeedback
-            style={style.btnCommonStyle}
+            style={[styles.btnCommonStyle, !!disable ? styles.disableBtnContainer : {}]}
             {...{onPress, disabled: !!disable}}>
             {!!btnInTextLoader ? (
               <LoaderUI color="white" size="small" />
             ) : (
-              <UIText>Title</UIText>
+              <UIText style={styles.btnTextStyle}>{btnText}</UIText>
             )}
           </TouchableNativeFeedback>
         </Animated.View>
       ) : (
-        <FView style={style.processSuccessParent}>
-          <Animated.View
-            style={[
-              style.proccessSuccessIconContainer,
-              {transform: [{scaleX}]},
-            ]}>
+        <FView style={styles.processSuccessParent}>
+          <Animated.View style={[styles.proccessSuccessIconContainer, {transform: [{scaleX}]}]}>
             <AntDesign name="check" size={20} color="white" />
           </Animated.View>
         </FView>
@@ -92,9 +88,9 @@ const styles = StyleSheet.create({
   flex: {
     flex: 1,
   },
-});
-
-const style = StyleSheet.create({
+  btnTextStyle: {
+    color: 'white',
+  },
   btnCommonStyle: {
     padding: 10,
     borderRadius: 10,
@@ -111,5 +107,8 @@ const style = StyleSheet.create({
   processSuccessParent: {
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  disableBtnContainer: {
+    backgroundColor: '#ccc',
   },
 });

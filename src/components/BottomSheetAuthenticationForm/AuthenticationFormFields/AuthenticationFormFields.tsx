@@ -101,6 +101,7 @@ export default function AuthenticationFormFields({toggleVisible}: TAuthenticatio
           disable: !(email.trim().length && password.trim().length),
           onPress,
           beginAnimation,
+          btnText: !showSignupFields ? 'Sign Up' : 'Login',
         }}
       />
       <FView style={styles.altOptionBtnContainer}>

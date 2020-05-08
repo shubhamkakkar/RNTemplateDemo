@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {StyleSheet} from 'react-native';
 import {useBooleanState} from '../../customHooks';
-import {BottomSheet, FView, UIText} from '../../UI';
+import {BottomSheet, FView} from '../../UI';
 import AuthenticationFormFields from './AuthenticationFormFields/AuthenticationFormFields';
 import ForgetPasswordFields from './ForgetPasswordFields/ForgetPasswordFields';
 import FormHeader from './FormHeader/FormHeader';
@@ -10,22 +10,20 @@ export default function BottomSheetAuthenticationForm() {
   const [visible, toggleVisible] = useBooleanState();
   const [boolStateToTriggerFormHeaderAnimation, toggleboolStateToTriggerFormHeaderAnimation] = useBooleanState();
   useEffect(() => {
-    if (!visibleBaseForm) {
+    if (!visible && !visibleBaseForm) {
       toggleboolStateToTriggerFormHeaderAnimation();
       setTimeout(() => {
-        // opening forget password  form
-        !visible && toggleVisible();
+        toggleVisible();
       }, 500);
     }
   }, [visibleBaseForm]);
 
   useEffect(() => {
-    if (!visible) {
+    if (!visibleBaseForm && !visible) {
       toggleboolStateToTriggerFormHeaderAnimation();
-      // setTimeout(() => {
-      // opening base form
-      !visibleBaseForm && toggleVisibleBaseForm();
-      // }, 00);
+      setTimeout(() => {
+        toggleVisibleBaseForm();
+      }, 100);
     }
   }, [visible]);
 
