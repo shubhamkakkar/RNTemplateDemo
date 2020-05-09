@@ -1,13 +1,8 @@
 import React, {Dispatch, SetStateAction, useEffect, useState} from 'react';
-import {
-  StyleSheet,
-  TextInputProperties,
-  TextInput,
-  ViewStyle,
-} from 'react-native';
+import {StyleSheet, TextInputProperties, TextInput, ViewStyle} from 'react-native';
 import {FView} from '..';
 import BaseHeading, {TBaseHeadingProps} from '../BaseHeading/BaseHeading';
-
+import theme from '../../theme';
 type TTextInputUI = {
   value: string;
   onChangeText: (param: string) => void | Dispatch<SetStateAction<string>>;
@@ -55,8 +50,8 @@ export default function TextInputUI({
 const styles = StyleSheet.create({
   textInputContainer: {
     borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 2.5,
+    borderColor: theme.primaryColor + 50,
+    borderRadius: 5,
     padding: 0,
   },
   textInputDefaultStyling: {

@@ -1,13 +1,6 @@
-import React, {ReactNode, useMemo, useEffect} from 'react';
-import {
-  Animated,
-  Dimensions,
-  StyleSheet,
-  TouchableOpacity,
-  View,
-  ViewProps,
-} from 'react-native';
-import {FView, KeyboardAvoidingViewUI, UIText} from '../index';
+import React, {ReactNode, useEffect, useMemo} from 'react';
+import {Animated, Dimensions, StyleSheet, TouchableOpacity, View, ViewProps} from 'react-native';
+import {KeyboardAvoidingViewUI, UIText} from '../index';
 
 type ModalProps = {
   children: ReactNode;
@@ -16,7 +9,6 @@ type ModalProps = {
   alwaysOpen?: boolean;
   headerTitle?: string;
   customStyleScrollView?: ViewProps;
-  customHeightInPercentage?: string;
 };
 
 export default function BottomSheet({
@@ -26,7 +18,6 @@ export default function BottomSheet({
   onClose,
   customStyleScrollView,
   alwaysOpen,
-  customHeightInPercentage,
 }: ModalProps) {
   const opacity = useMemo(() => new Animated.Value(0), []);
   const {height: HEIGHT} = useMemo(() => Dimensions.get('window'), []);
@@ -88,9 +79,7 @@ export default function BottomSheet({
         },
       ]}>
       <Header />
-      <KeyboardAvoidingViewUI {...{customStyleScrollView}}>
-        {children}
-      </KeyboardAvoidingViewUI>
+      <KeyboardAvoidingViewUI {...{customStyleScrollView}}>{children}</KeyboardAvoidingViewUI>
     </Animated.View>
   );
 }

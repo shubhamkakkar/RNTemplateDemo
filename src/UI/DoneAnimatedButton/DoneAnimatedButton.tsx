@@ -6,6 +6,7 @@ import useBooleanState from '../../customHooks/useBooleanState';
 import UIText from '../UIText/UIText';
 import FView from '../FView/FView';
 import LoaderUI from '../LoaderUI/LoaderUI';
+import theme from '../../theme';
 type TDoneAnimatedButton = {
   children?: React.ReactNode;
   btnText?: string;
@@ -96,13 +97,13 @@ const styles = StyleSheet.create({
   btnCommonStyle: {
     padding: 10,
     borderRadius: 10,
-    backgroundColor: '#2ca8e5',
+    backgroundColor: theme.primaryColor,
   },
   proccessSuccessIconContainer: {
     width: 40,
     height: 40,
     borderRadius: 20,
-    backgroundColor: '#2ca8e5',
+    backgroundColor: theme.highlighterColor,
     justifyContent: 'center',
     alignItems: 'center',
   },

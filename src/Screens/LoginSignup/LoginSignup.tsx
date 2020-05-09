@@ -2,6 +2,7 @@ import React from 'react';
 import {StyleSheet} from 'react-native';
 import {BottomSheetAuthenticationForm} from '../../components';
 import {FView} from '../../UI';
+import theme from '../../theme';
 export default function LoginSignup() {
   return (
     <FView style={styles.container}>
@@ -12,6 +13,6 @@ export default function LoginSignup() {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#2ca8e5',
+    backgroundColor: theme.primaryColor,
   },
 });

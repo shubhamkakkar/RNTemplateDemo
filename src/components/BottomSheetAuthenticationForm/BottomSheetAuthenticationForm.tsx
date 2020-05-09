@@ -9,7 +9,10 @@ import UnderLayingLogo from './UnderLayingLogo/UnderLayingLogo';
 export default function BottomSheetAuthenticationForm() {
   const [visibleBaseForm, toggleVisibleBaseForm] = useBooleanState(true);
   const [visible, toggleVisible] = useBooleanState();
-  const [boolStateToTriggerFormHeaderAnimation, toggleboolStateToTriggerFormHeaderAnimation] = useBooleanState();
+  const [
+    boolStateToTriggerFormHeaderAnimation,
+    toggleboolStateToTriggerFormHeaderAnimation,
+  ] = useBooleanState();
   useEffect(() => {
     if (!visible && !visibleBaseForm) {
       toggleboolStateToTriggerFormHeaderAnimation();

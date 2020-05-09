@@ -1,9 +1,8 @@
-import React, {useMemo, useEffect} from 'react';
-import {StyleSheet, Animated, Dimensions} from 'react-native';
+import React, {useMemo} from 'react';
+import {Animated, Dimensions, StyleSheet, View} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {useBooleanState, useStringState} from '../../../customHooks';
 import {DoneAnimatedButton, FView, TextInputUI, UIText} from '../../../UI';
-import {transform} from '@babel/core';
 
 type TAuthenticationFormFields = {
   toggleVisible: () => void;
@@ -45,7 +44,7 @@ export default function AuthenticationFormFields({toggleVisible}: TAuthenticatio
   }
 
   return (
-    <Animated.View style={{paddingBottom: 20}}>
+    <View style={styles.container}>
       <TextInputUI
         {...{
           value: email,
@@ -109,11 +108,14 @@ export default function AuthenticationFormFields({toggleVisible}: TAuthenticatio
           <UIText bold> {showSignupFields ? 'Sign Up' : 'Login'}</UIText>
         </TouchableOpacity>
       </FView>
-    </Animated.View>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
+  container: {
+    paddingBottom: 20,
+  },
   textInputStyle: {
     marginBottom: 5,
   },

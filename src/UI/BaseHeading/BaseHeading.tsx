@@ -2,6 +2,7 @@ import React from 'react';
 import {StyleSheet, ViewStyle, TextStyle} from 'react-native';
 import {FView} from '../';
 import UIText from '../UIText/UIText';
+import theme from '../../theme';
 
 export type TBaseHeadingProps = {
   title: string;
@@ -9,16 +10,10 @@ export type TBaseHeadingProps = {
   textStyle?: TextStyle;
 };
 
-export default function BaseHeading({
-  title,
-  containerStyle,
-  textStyle,
-}: TBaseHeadingProps) {
+export default function BaseHeading({title, containerStyle, textStyle}: TBaseHeadingProps) {
   return (
     <FView style={{...containerStyle}}>
-      <UIText style={{...styles.defaultHeadingStyle, ...textStyle}}>
-        {title}
-      </UIText>
+      <UIText style={{...styles.defaultHeadingStyle, ...textStyle}}>{title}</UIText>
     </FView>
   );
 }
