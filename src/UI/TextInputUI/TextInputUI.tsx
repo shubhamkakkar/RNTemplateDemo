@@ -46,6 +46,7 @@ export default function TextInputUI({
           {...{value, onChangeText, ...texInputProps}}
         />
       </FView>
+      {children}
     </FView>
   );
 }
