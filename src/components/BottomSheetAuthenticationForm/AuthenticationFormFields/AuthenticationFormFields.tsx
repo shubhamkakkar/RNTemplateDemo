@@ -1,18 +1,20 @@
+import {Formik, FormikHelpers} from 'formik';
 import React, {useMemo} from 'react';
 import {Animated, Dimensions, StyleSheet, View} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
-import {useBooleanState, useStringState} from '../../../customHooks';
-import {DoneAnimatedButton, FView, TextInputUI, UIText} from '../../../UI';
+import {useBooleanState} from '../../../customHooks';
+import {DoneAnimatedButton, FormikTextInput, FView, UIText} from '../../../UI';
+import {
+  initialState,
+  TInitialState,
+  validationSchemaYup,
+} from './initialStateAuthenticationFormFields';
 
 type TAuthenticationFormFields = {
   toggleVisible: () => void;
 };
 
 export default function AuthenticationFormFields({toggleVisible}: TAuthenticationFormFields) {
-  const [email, setEmail] = useStringState();
-  const [password, setPassword] = useStringState();
-  const [confirmPassword, setConfirmPassword] = useStringState();
-  const [btnInTextLoader, toggleBtnInTextLoader] = useBooleanState();
   const [beginAnimation, toggleBeginAnimation] = useBooleanState();
   const [showSignupFields, toggleShwoSignupFields] = useBooleanState(true);
 
@@ -23,12 +25,12 @@ export default function AuthenticationFormFields({toggleVisible}: TAuthenticatio
     //-> navigation login
   }
 
-  function onPress() {
+  function onPress(value: TInitialState, actions: FormikHelpers<TInitialState>) {
     // -> form submit action
-    toggleBtnInTextLoader();
+    actions.setSubmitting(true);
     // demo for animation view
     setTimeout(() => {
-      toggleBtnInTextLoader();
+      actions.setSubmitting(false);
       toggleBeginAnimation();
     }, 2000);
   }
@@ -45,69 +47,83 @@ export default function AuthenticationFormFields({toggleVisible}: TAuthenticatio
 
   return (
     <View style={styles.container}>
-      <TextInputUI
-        {...{
-          value: email,
-          onChangeText: setEmail,
-          containerStyle: styles.textInputStyle,
-          baseHeadingProps: {
-            title: 'Email',
-          },
-        }}
-      />
-      <TextInputUI
-        {...{
-          value: password,
-          onChangeText: setPassword,
-          containerStyle: styles.textInputStyle,
-          baseHeadingProps: {
-            title: 'Password',
-          },
-          texInputProps: {
-            secureTextEntry: true,
-          },
-        }}
-      />
-      <Animated.View
-        style={[
-          {
-            transform: [{translateX: translateXSignupFields}],
-          },
-        ]}>
-        <TextInputUI
-          {...{
-            value: confirmPassword,
-            onChangeText: setConfirmPassword,
-            containerStyle: styles.textInputStyle,
-            baseHeadingProps: {
-              title: 'Confirm Password',
-            },
-            texInputProps: {
-              secureTextEntry: true,
-            },
-          }}
-        />
-      </Animated.View>
-      <FView style={styles.forgotPasswordBtnContainer}>
-        <TouchableOpacity disabled={btnInTextLoader} onPress={toggleVisible}>
-          <UIText bold>Forgot Password</UIText>
-        </TouchableOpacity>
-      </FView>
-      <DoneAnimatedButton
-        {...{
-          onAnimationComplete,
-          btnInTextLoader,
-          disable: !(email.trim().length && password.trim().length),
-          onPress,
-          beginAnimation,
-          btnText: !showSignupFields ? 'Sign Up' : 'Login',
-        }}
-      />
-      <FView style={styles.altOptionBtnContainer}>
-        <TouchableOpacity disabled={btnInTextLoader} onPress={animateTranslateXSignupFields}>
-          <UIText bold> {showSignupFields ? 'Sign Up' : 'Login'}</UIText>
-        </TouchableOpacity>
-      </FView>
+      <Formik
+        validationSchema={validationSchemaYup(showSignupFields)}
+        initialValues={initialState(showSignupFields)}
+        onSubmit={(value, actions) => onPress(value, actions)}>
+        {({values, handleChange, isValid, isSubmitting, handleSubmit}) => (
+          <React.Fragment>
+            <FormikTextInput
+              {...{
+                fieldName: 'email',
+                value: values.email,
+                onChangeText: handleChange('email'),
+                containerStyle: styles.textInputStyle,
+                baseHeadingProps: {
+                  title: 'Email',
+                },
+              }}
+            />
+            <FormikTextInput
+              {...{
+                fieldName: 'password',
+                value: values.password,
+                onChangeText: handleChange('password'),
+                containerStyle: styles.textInputStyle,
+                baseHeadingProps: {
+                  title: 'Password',
+                },
+                texInputProps: {
+                  secureTextEntry: true,
+                },
+              }}
+            />
+            <Animated.View
+              style={[
+                {
+                  transform: [{translateX: translateXSignupFields}],
+                },
+              ]}>
+              <FormikTextInput
+                {...{
+                  fieldName: 'confirmPassword',
+                  value: values.confirmPassword,
+                  onChangeText: handleChange('confirmPassword'),
+                  containerStyle: styles.textInputStyle,
+                  baseHeadingProps: {
+                    title: 'Confirm Password',
+                  },
+                  texInputProps: {
+                    secureTextEntry: true,
+                  },
+                }}
+              />
+            </Animated.View>
+            <FView style={styles.forgotPasswordBtnContainer}>
+              <TouchableOpacity disabled={isValid && !isSubmitting} onPress={toggleVisible}>
+                <UIText bold>Forgot Password</UIText>
+              </TouchableOpacity>
+            </FView>
+            <DoneAnimatedButton
+              {...{
+                onAnimationComplete,
+                btnInTextLoader: isValid && !isSubmitting,
+                beginAnimation,
+                disable: isValid && !isSubmitting,
+                onPress: handleSubmit,
+                btnText: !showSignupFields ? 'Sign Up' : 'Login',
+              }}
+            />
+            <FView style={styles.altOptionBtnContainer}>
+              <TouchableOpacity
+                disabled={isValid && !isSubmitting}
+                onPress={animateTranslateXSignupFields}>
+                <UIText bold> {showSignupFields ? 'Sign Up' : 'Login'}</UIText>
+              </TouchableOpacity>
+            </FView>
+          </React.Fragment>
+        )}
+      </Formik>
     </View>
   );
 }
