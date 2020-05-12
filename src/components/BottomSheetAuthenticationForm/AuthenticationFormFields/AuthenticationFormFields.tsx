@@ -100,11 +100,13 @@ export default function AuthenticationFormFields({toggleVisible}: TAuthenticatio
                   }}
                 />
               </Animated.View>
-              <FView style={styles.forgotPasswordBtnContainer}>
-                <TouchableOpacity disabled={isSubmitting} onPress={toggleVisible}>
-                  <UIText bold>Forgot Password</UIText>
-                </TouchableOpacity>
-              </FView>
+              {!beginAnimation && (
+                <FView style={styles.forgotPasswordBtnContainer}>
+                  <TouchableOpacity disabled={isSubmitting} onPress={toggleVisible}>
+                    <UIText bold>Forgot Password</UIText>
+                  </TouchableOpacity>
+                </FView>
+              )}
               <DoneAnimatedButton
                 {...{
                   onAnimationComplete,
