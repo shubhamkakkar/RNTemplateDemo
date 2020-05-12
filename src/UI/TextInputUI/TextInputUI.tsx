@@ -3,13 +3,15 @@ import {StyleSheet, TextInputProperties, TextInput, ViewStyle} from 'react-nativ
 import {FView} from '..';
 import BaseHeading, {TBaseHeadingProps} from '../BaseHeading/BaseHeading';
 import theme from '../../theme';
-type TTextInputUI = {
+
+export type TTextInputUI = {
   value: string;
   onChangeText: (param: string) => void | Dispatch<SetStateAction<string>>;
   customTexTInputStyling?: ViewStyle;
   containerStyle?: ViewStyle;
   texInputProps?: TextInputProperties;
   baseHeadingProps: TBaseHeadingProps;
+  children?: any;
 };
 
 export default function TextInputUI({
@@ -19,6 +21,7 @@ export default function TextInputUI({
   texInputProps,
   customTexTInputStyling,
   baseHeadingProps,
+  children,
 }: TTextInputUI) {
   const [width, setWidth] = useState('99%');
 
