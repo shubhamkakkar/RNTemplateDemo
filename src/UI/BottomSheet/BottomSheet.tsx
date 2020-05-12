@@ -1,6 +1,7 @@
 import React, {ReactNode, useEffect, useMemo} from 'react';
 import {Animated, Dimensions, StyleSheet, TouchableOpacity, View, ViewProps} from 'react-native';
 import {KeyboardAvoidingViewUI, UIText} from '../index';
+import theme from '../../theme';
 
 type ModalProps = {
   children: ReactNode;
@@ -86,7 +87,7 @@ export default function BottomSheet({
 
 const styles = StyleSheet.create({
   modal: {
-    backgroundColor: 'white',
+    backgroundColor: theme.backgroundColor,
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
     padding: 10,

@@ -63,7 +63,7 @@ export default function DoneAnimatedButton({
   return (
     <FView>
       {!showAnimatedView ? (
-        <Animated.View style={[styles.flex, {transform: [{scaleX}]}]}>
+        <Animated.View style={[styles.flex, {transform: [{scale: scaleX}]}]}>
           <TouchableNativeFeedback
             style={[styles.btnCommonStyle, !!disable ? styles.disableBtnContainer : {}]}
             {...{onPress, disabled: !!disable}}>
@@ -76,8 +76,9 @@ export default function DoneAnimatedButton({
         </Animated.View>
       ) : (
         <FView style={styles.processSuccessParent}>
-          <Animated.View style={[styles.proccessSuccessIconContainer, {transform: [{scaleX}]}]}>
-            <AntDesign name="check" size={20} color="white" />
+          <Animated.View
+            style={[styles.proccessSuccessIconContainer, {transform: [{scale: scaleX}]}]}>
+            <AntDesign name="check" size={30} color="white" />
           </Animated.View>
         </FView>
       )}
@@ -96,13 +97,13 @@ const styles = StyleSheet.create({
   },
   btnCommonStyle: {
     padding: 10,
-    borderRadius: 10,
+    borderRadius: 20,
     backgroundColor: theme.primaryColor,
   },
   proccessSuccessIconContainer: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
+    width: 60,
+    height: 60,
+    borderRadius: 30,
     backgroundColor: theme.highlighterColor,
     justifyContent: 'center',
     alignItems: 'center',
@@ -113,8 +114,5 @@ const styles = StyleSheet.create({
   },
   disableBtnContainer: {
     backgroundColor: '#f1f2f3',
-  },
-  disableBtnText: {
-    backgroundColor: '#2ca8e5',
   },
 });

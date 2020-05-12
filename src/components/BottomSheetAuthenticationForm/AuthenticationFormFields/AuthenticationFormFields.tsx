@@ -51,8 +51,7 @@ export default function AuthenticationFormFields({toggleVisible}: TAuthenticatio
         validationSchema={validationSchema}
         initialValues={initialState(showSignupFields)}
         onSubmit={(value, actions) => onPress(value, actions)}>
-        {({values, handleChange, isValid, isSubmitting, handleSubmit, errors}) => {
-          console.log({values, errors});
+        {({values, handleChange, isValid, isSubmitting, handleSubmit}) => {
           return (
             <React.Fragment>
               <FormikTextInput
