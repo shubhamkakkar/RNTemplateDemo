@@ -16,7 +16,7 @@ type TAuthenticationFormFields = {
 
 export default function AuthenticationFormFields({toggleVisible}: TAuthenticationFormFields) {
   const [beginAnimation, toggleBeginAnimation] = useBooleanState();
-  const [showSignupFields, toggleShwoSignupFields] = useBooleanState(true);
+  const [showSignupFields, toggleShwoSignupFields] = useBooleanState();
 
   const {width: WIDTH} = useMemo(() => Dimensions.get('window'), []);
   const translateXSignupFields = useMemo(() => new Animated.Value(WIDTH), []);
@@ -36,7 +36,7 @@ export default function AuthenticationFormFields({toggleVisible}: TAuthenticatio
 
   function animateTranslateXSignupFields() {
     Animated.timing(translateXSignupFields, {
-      toValue: showSignupFields ? 0 : WIDTH,
+      toValue: !showSignupFields ? 0 : WIDTH,
       duration: 500,
       useNativeDriver: true,
     }).start(() => {
@@ -44,14 +44,15 @@ export default function AuthenticationFormFields({toggleVisible}: TAuthenticatio
     });
   }
 
+  const validationSchema = useMemo(() => validationSchemaYup(showSignupFields), [showSignupFields]);
   return (
     <View style={styles.container}>
       <Formik
-        validationSchema={validationSchemaYup(showSignupFields)}
+        validationSchema={validationSchema}
         initialValues={initialState(showSignupFields)}
         onSubmit={(value, actions) => onPress(value, actions)}>
         {({values, handleChange, isValid, isSubmitting, handleSubmit, errors}) => {
-          console.log({values, errors, isValid, isSubmitting});
+          console.log({values, errors});
           return (
             <React.Fragment>
               <FormikTextInput
@@ -114,13 +115,13 @@ export default function AuthenticationFormFields({toggleVisible}: TAuthenticatio
                   beginAnimation,
                   disable: !isValid || isSubmitting,
                   onPress: handleSubmit,
-                  btnText: !showSignupFields ? 'Sign Up' : 'Login',
+                  btnText: showSignupFields ? 'Sign Up' : 'Login',
                 }}
               />
               {!beginAnimation && (
                 <FView style={styles.altOptionBtnContainer}>
                   <TouchableOpacity disabled={isSubmitting} onPress={animateTranslateXSignupFields}>
-                    <UIText bold> {showSignupFields ? 'Sign Up' : 'Login'}</UIText>
+                    <UIText bold> {!showSignupFields ? 'Sign Up' : 'Login'}</UIText>
                   </TouchableOpacity>
                 </FView>
               )}
@@ -138,6 +139,7 @@ const styles = StyleSheet.create({
   },
   textInputStyle: {
     marginBottom: 5,
+    paddingBottom: 5,
   },
   forgotPasswordBtnContainer: {
     alignItems: 'flex-end',

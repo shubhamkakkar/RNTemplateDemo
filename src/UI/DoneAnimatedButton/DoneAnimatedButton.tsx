@@ -68,7 +68,7 @@ export default function DoneAnimatedButton({
             style={[styles.btnCommonStyle, !!disable ? styles.disableBtnContainer : {}]}
             {...{onPress, disabled: !!disable}}>
             {!!btnInTextLoader ? (
-              <LoaderUI color="white" size="small" />
+              <LoaderUI color={theme.primaryColor} size="small" />
             ) : (
               <UIText style={styles.btnTextStyle}>{btnText}</UIText>
             )}

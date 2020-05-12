@@ -21,6 +21,15 @@ export function initialState(showSignupFields: boolean): TInitialState {
 }
 
 export function validationSchemaYup(showSignupFields: boolean) {
+  const showSignupFieldsValidation = {
+    confirmPassword: string().when('password', {
+      is: (val: string) => val && val.length > 0,
+      then: string()
+        .oneOf([ref('password')], 'Both passwords need to be the same')
+        .required(),
+    }),
+  };
+
   let baseValidation = {
     email: string()
       .email('Please enter a valid email')
@@ -28,16 +37,12 @@ export function validationSchemaYup(showSignupFields: boolean) {
     password: string().required('Password is required'),
   };
 
-  const showSignupFieldsValidation = {
-    confirmPassword: string().oneOf([ref('password'), null], 'Passwords must match'),
-  };
+  if (showSignupFields) {
+    baseValidation = {
+      ...baseValidation,
+      ...showSignupFieldsValidation,
+    };
+  }
 
-  return object().shape(
-    showSignupFields
-      ? {
-          ...baseValidation,
-          ...showSignupFieldsValidation,
-        }
-      : baseValidation,
-  );
+  return object().shape(baseValidation);
 }
