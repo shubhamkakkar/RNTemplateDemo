@@ -44,8 +44,8 @@ def flipper_post_install(installer)
   end
 end
 
-target 'RemoteLocalNotificationAuthScreensAnimatedTemplate' do
-  # Pods for RemoteLocalNotificationAuthScreensAnimatedTemplate
+target 'NewName' do
+  # Pods for NewName
   pod 'FBLazyVector', :path => "../node_modules/react-native/Libraries/FBLazyVector"
   pod 'FBReactNativeSpec', :path => "../node_modules/react-native/Libraries/FBReactNativeSpec"
   pod 'RCTRequired', :path => "../node_modules/react-native/Libraries/RCTRequired"
@@ -79,7 +79,7 @@ target 'RemoteLocalNotificationAuthScreensAnimatedTemplate' do
 
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
 
-  target 'RemoteLocalNotificationAuthScreensAnimatedTemplateTests' do
+  target 'NewNameTests' do
     inherit! :complete
     # Pods for testing
   end
@@ -96,10 +96,10 @@ target 'RemoteLocalNotificationAuthScreensAnimatedTemplate' do
   end
 end
 
-target 'RemoteLocalNotificationAuthScreensAnimatedTemplate-tvOS' do
-  # Pods for RemoteLocalNotificationAuthScreensAnimatedTemplate-tvOS
+target 'NewName-tvOS' do
+  # Pods for NewName-tvOS
 
-  target 'RemoteLocalNotificationAuthScreensAnimatedTemplate-tvOSTests' do
+  target 'NewName-tvOSTests' do
     inherit! :search_paths
     # Pods for testing
   end

@@ -1,4 +1,4 @@
-package com.remotelocalnotificationauthscreensanimatedtemplate;
+package com.companyname.appname;
 
 import com.facebook.react.ReactActivity;
 
@@ -16,7 +16,7 @@ public class MainActivity extends ReactActivity {
    */
   @Override
   protected String getMainComponentName() {
-    return "RemoteLocalNotificationAuthScreensAnimatedTemplate";
+    return "NewName";
   }
 
   protected void onCreate(Bundle savedInstanceState) {

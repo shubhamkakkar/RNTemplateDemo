@@ -7,11 +7,11 @@
 #define TIMEOUT_SECONDS 600
 #define TEXT_TO_LOOK_FOR @"Welcome to React"
 
-@interface RemoteLocalNotificationAuthScreensAnimatedTemplateTests : XCTestCase
+@interface NewNameTests : XCTestCase
 
 @end
 
-@implementation RemoteLocalNotificationAuthScreensAnimatedTemplateTests
+@implementation NewNameTests
 
 - (BOOL)findSubviewInView:(UIView *)view matching:(BOOL(^)(UIView *view))test
 {
