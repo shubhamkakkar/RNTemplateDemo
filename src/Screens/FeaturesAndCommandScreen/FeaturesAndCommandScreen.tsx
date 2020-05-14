@@ -1,11 +1,10 @@
 import React from 'react';
 import {StyleSheet} from 'react-native';
-import {FScrollView, RowUI, FView, UIText} from '../../UI';
+import {FScrollView, RowUI, FView, UIText, OpenLink} from '../../UI';
 
 type TFeatures = {
   title: string;
   description: string;
-  documentationLink?: string;
   imageURL?: string;
 };
 
@@ -19,25 +18,25 @@ const preInstalledPackages: TpreInstalledPackages[] = [
   {
     title: 'React Native Navigation ',
     extraContent: '(and its related dependencies as per documentation)',
-    documentationLink: '',
+    documentationLink: 'https://reactnavigation.org/',
   },
   {
     title: 'React Native Vector Icons',
-    documentationLink: '',
+    documentationLink: 'https://github.com/oblador/react-native-vector-icons',
   },
   {
     title: 'React Native Firebase (app / messaging)',
-    documentationLink: '',
+    documentationLink: 'https://rnfirebase.io/',
   },
   {
     title: 'Formik',
     extraContent: '(for form validation)',
-    documentationLink: '',
+    documentationLink: 'https://jaredpalmer.com/formik/docs/overview',
   },
   {
     title: 'Yup',
     extraContent: '(for form validation)',
-    documentationLink: '',
+    documentationLink: 'https://github.com/jquense/yup',
   },
 ];
 
@@ -47,13 +46,11 @@ const features: TFeatures[] = [
     description:
       'A base setup for FCM has been established, do the required changes in MainActivity.java file',
     imageURL: '',
-    documentationLink: '',
   },
   {
     title: 'Local Notification (RN Push Notification) ',
     description: 'Support for foreground notification and scheduled notification has been added',
     imageURL: '',
-    documentationLink: '',
   },
   {
     title: 'Authentication screen',
@@ -64,7 +61,7 @@ const features: TFeatures[] = [
   {
     title: 'UI Support',
     description:
-      'Custom UI like TEXT VIEW $ SCROLLVIEW, Animated Bottom Sheet is created, for easy usage and less boilerplate code',
+      'Custom UI like Text, View, ScrollView, Bottom Sheet etc are created, for easy usage and less boilerplate code',
     imageURL: '',
   },
   {
@@ -77,12 +74,15 @@ const features: TFeatures[] = [
 export default function FeaturesAndCommandScreen() {
   return (
     <FScrollView>
-      {preInstalledPackages.map(({title, extraContent}, key) => (
+      {preInstalledPackages.map(({title, extraContent, documentationLink}, key) => (
         <RowUI {...{key, style: styles.center}}>
           <FView>
-            <UIText>{title}</UIText>
+           <UIText>{title}</UIText>
             {!!extraContent?.length && <UIText>{extraContent}</UIText>}
-          </FView>
+            <OpenLink {...{url: documentationLink}}>
+           <UIText>Docs</UIText>
+           </OpenLink> 
+           </FView>
           <FView />
         </RowUI>
       ))}

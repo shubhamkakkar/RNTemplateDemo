@@ -9,3 +9,4 @@ export {default as RowUI} from './RowUI/RowUI';
 export {default as FormikTextInput} from './TextInputUI/FormikTextInput';
 export {default as TextInputUI} from './TextInputUI/TextInputUI';
 export {default as UIText} from './UIText/UIText';
+export {default as OpenLink} from './OpenLink/OpenLink';
