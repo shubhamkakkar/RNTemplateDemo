@@ -6,7 +6,6 @@ import theme from '../../theme';
 type TFeatures = {
   title: string;
   description: string;
-  imageURL?: string;
 };
 
 type TpreInstalledPackages = {
@@ -46,24 +45,20 @@ const features: TFeatures[] = [
     title: 'FCM Notification',
     description:
       'A base setup for FCM has been established, do the required changes in MainActivity.java file',
-    imageURL: '',
   },
   {
     title: 'Local Notification (RN Push Notification) ',
     description: 'Support for foreground notification and scheduled notification has been added',
-    imageURL: '',
   },
   {
     title: 'Authentication screen',
     description:
       'Every application has a requirement for authentication, a formik validation support is added along with it',
-    imageURL: '',
   },
   {
     title: 'UI Support',
     description:
       'Custom UI like Text, View, ScrollView, Bottom Sheet etc are created, for easy usage and less boilerplate code',
-    imageURL: '',
   },
   {
     title: 'Custom Hooks',
