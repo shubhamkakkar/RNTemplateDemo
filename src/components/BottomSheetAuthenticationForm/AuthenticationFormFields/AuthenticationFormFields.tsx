@@ -1,5 +1,6 @@
 import {Formik, FormikHelpers} from 'formik';
 import React, {useMemo} from 'react';
+import {useNavigation} from '@react-navigation/native';
 import {Animated, Dimensions, StyleSheet, View} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {useBooleanState} from '../../../customHooks';
@@ -17,11 +18,13 @@ type TAuthenticationFormFields = {
 export default function AuthenticationFormFields({toggleVisible}: TAuthenticationFormFields) {
   const [beginAnimation, toggleBeginAnimation] = useBooleanState();
   const [showSignupFields, toggleShwoSignupFields] = useBooleanState();
-
   const {width: WIDTH} = useMemo(() => Dimensions.get('window'), []);
   const translateXSignupFields = useMemo(() => new Animated.Value(WIDTH), []);
 
+  const navigation = useNavigation();
+
   function onAnimationComplete() {
+    navigation.navigate('FeaturesAndCommand');
     //-> navigation login
   }
 

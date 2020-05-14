@@ -5,5 +5,6 @@ export {default as KeyboardAvoidingViewUI} from './KeyboardAvoidingViewUI/Keyboa
 export {default as TextInputUI} from './TextInputUI/TextInputUI';
 export {default as FormikTextInput} from './TextInputUI/FormikTextInput';
 export {default as UIText} from './UIText/UIText';
+export {default as FScrollView} from './FScrollView/FScrollView';
 export {default as DoneAnimatedButton} from './DoneAnimatedButton/DoneAnimatedButton';
 export {default as LoaderUI} from './LoaderUI/LoaderUI';
