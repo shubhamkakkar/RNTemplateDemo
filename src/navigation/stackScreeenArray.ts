@@ -1,4 +1,4 @@
-import {LoginSignup} from '../Screens';
+import {LoginSignup, FeaturesAndCommandScreen} from '../Screens';
 
 type TStackScreen = {
   name: string;
@@ -9,5 +9,9 @@ export const stackScreeenArray: TStackScreen[] = [
   {
     name: 'LoginSignup',
     component: LoginSignup,
+  },
+  {
+    name: 'FeaturesAndCommand',
+    component: FeaturesAndCommandScreen,
   },
 ];
