@@ -1,6 +1,7 @@
 import React from 'react';
-import {StyleSheet} from 'react-native';
-import {FScrollView, RowUI, FView, UIText, OpenLink} from '../../UI';
+import { StyleSheet } from 'react-native';
+import { FScrollView, RowUI, FView, UIText, OpenLink } from '../../UI';
+import theme from '../../theme';
 
 type TFeatures = {
   title: string;
@@ -73,26 +74,22 @@ const features: TFeatures[] = [
 
 export default function FeaturesAndCommandScreen() {
   return (
-    <FScrollView>
-      {preInstalledPackages.map(({title, extraContent, documentationLink}, key) => (
-        <RowUI {...{key, style: styles.center}}>
-          <FView>
-           <UIText>{title}</UIText>
+    <FScrollView style={styles.container}>
+      {preInstalledPackages.map(({ title, extraContent, documentationLink }, key) => (
+        <RowUI {...{ key, style: { ...styles.center, ...styles.itemContainer }, }}>
+          <OpenLink {...{ url: documentationLink }}>
+            <UIText style={styles.headingText}>{title}</UIText>
             {!!extraContent?.length && <UIText>{extraContent}</UIText>}
-            <OpenLink {...{url: documentationLink}}>
-           <UIText>Docs</UIText>
-           </OpenLink> 
-           </FView>
-          <FView />
+            <UIText style={styles.openLinkText}>Docs</UIText>
+          </OpenLink>
         </RowUI>
       ))}
-      {features.map(({title, description}, key) => (
-        <RowUI {...{key, style: styles.center}}>
+      {features.map(({ title, description }, key) => (
+        <RowUI {...{ key, style: { ...styles.center, ...styles.itemContainer }, }}>
           <FView>
-            <UIText>{title}</UIText>
+            <UIText style={styles.headingText}>{title}</UIText>
             <UIText>{description}</UIText>
           </FView>
-          <FView />
         </RowUI>
       ))}
     </FScrollView>
@@ -102,6 +99,20 @@ export default function FeaturesAndCommandScreen() {
 const styles = StyleSheet.create({
   center: {
     alignItems: 'center',
-    margin: 10,
+    margin: 10
   },
+  itemContainer: {
+    paddingHorizontal: 10
+  },
+  container: {
+    backgroundColor: theme.baseColor + 30
+  },
+  headingText: {
+    color: theme.stongPrimary,
+    fontWeight: "bold",
+    fontSize: 15
+  },
+  openLinkText: {
+    color: theme.primaryColor,
+  }
 });
